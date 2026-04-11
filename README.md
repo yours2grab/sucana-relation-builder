@@ -1,62 +1,57 @@
-# Sucana Relation Builder
+# sucana-dm
 
-**LinkedIn outreach that doesn't sound like a robot wrote it.**
+Claude Code skill — **LinkedIn DM co-pilot** for Virgil Brewster (Sucana). v3.1 conversion-gap model.
 
-## The Problem
+Runs as `/dm` in the Claude Code harness. Pulls unread + reminder threads from Kondo, scores every prospect against a diagnosis-first ICP, generates 3 reply options per person, sets drafts + reminders in Kondo, and logs CRM notes.
 
-You know those LinkedIn DMs that make you cringe? "Hey [NAME], I noticed we're both in the [INDUSTRY] space. I'd love to connect and explore synergies."
+## What makes v3.1 different
 
-Everyone gets 10 of those a day. Everyone ignores them.
+The DM skill went through two pivots. v3.1 is the current canonical version (2026-04-11).
 
-The problem isn't automation. The problem is that automated messages sound automated. They use words no human would say in a real conversation. They skip straight to the pitch. They treat people like leads instead of people.
+**v1 (March 2026) — Relation Builder / Sucana tool era.** CHARM framework, pitched Sucana-the-SaaS to PPC agency owners. 6-month data: 0% call conversion in DMs. The motion didn't convert.
 
-## What This Skill Does
+**v2/v3 (April 10, 2026) — AI sales systems pivot.** Killed Sucana-the-tool. New offer: free automation build → $500 setup → $2K/mo retainer. New ICP: founders selling $2K+ offers with a **sales team** (setter + closer). Better, but still wrong — the sales-team gate would have killed every one of Virgil's past wins.
 
-Relation Builder is a Claude Code skill that writes LinkedIn DMs and post comments in your actual voice. Not a corporate version of your voice. Your real voice.
+**v3.1 (April 11, 2026) — conversion-gap model.** Replaces the sales-team gate with a **conversion gap + small team** gate.
 
-It uses the CHARM framework:
-- **Capture** — Notice something specific about the person
-- **Humanize** — Write like you'd text a friend, not pitch a client
-- **Analyze** — Match your message to where they are in the relationship
-- **Request** — Know when to ask and when to just be present
-- **Manifest** — Move toward real conversations, not sales calls
+- **Real gate:** founders with premium offers (≥$1K), real attention (leads/audience/traffic), a described gap between the click and the sale, and at least 1–2 people helping (VA, editor, ops, contractor — any helper counts; sales team NOT required).
+- **Pure lone wolves disqualified.** Not "no sales team" — just "zero humans helping at all."
+- **Added Stage D (Diagnose)** as a mandatory step between Analyze and Request. Name the leak in plain English before making any offer.
+- **Added Surgeon's Pivot hard rule.** If no pain question has landed by Message 4 of a prospect thread, force a System Reset message.
+- **New stage flow:** CHADRM (Capture → Humanize → Analyze → Diagnose → Request → Manifest).
 
-Every message goes through a self-check before you see it. Banned words get caught automatically. If it sounds like AI wrote it, it gets rewritten.
+## The canonical archetype: Tina
 
-## How It Works
+1M+ YouTube viewers. Premium offer. Small team (video editor + VA). **No sales team.** No conversion system. Built the system → started selling. The v2/v3 sales-team ICP would have killed her on Day 1. v3.1 catches her correctly: offer ✅, attention ✅, conversion gap ✅, small team ✅.
 
-1. You give it a person's name + something they posted or did on LinkedIn
-2. It figures out if this is a DM or a comment
-3. It loads your voice profile and approved message examples
-4. It writes 3 options, scores each one, and shows you the best
-5. You pick one, edit if needed, and send it yourself
+Any future ICP revision that would filter Tina out is broken.
 
-The skill learns from what you approve and reject. Over time, it gets closer to how you actually write.
+## Files
 
-## What It's Not
-
-This isn't a mass outreach tool. It doesn't send messages automatically. It doesn't scrape profiles. It writes one message at a time for one person at a time, because that's how real relationships work.
+| File | Purpose |
+|---|---|
+| `SKILL.md` | The full runtime skill — CHADRM framework, ICP filter, pain-question branches (Branch A = small team, Branch B = team'd), prospect scoring (0–100), Stage D diagnosis vocabulary, Stage R free-diagnostic offer, 11 non-negotiable rules, pre-send checks, breakup flow, voice rules |
+| `product.md` | Phase changelog, pivot decisions, Ralph test results, open items |
 
 ## Install
 
-Drop the `linkedin-relation-builder/` folder into your `.claude/skills/` directory.
+This is a personal Claude Code skill — not meant to be pip-installed. To use:
 
-## Requirements
+```bash
+git clone https://github.com/yours2grab/sucana-dm.git ~/.claude/skills/dm
+```
 
+Requires:
 - Claude Code CLI
-- A voice profile (examples of how you actually write)
-- Approved message examples (so the skill has training data)
+- Kondo MCP server (for LinkedIn inbox access)
+- Virgil's Kondo account (this skill is hard-coded to his voice, ICP, and offer ladder)
 
-## Credits
+## Not a SaaS. Not a template.
 
-Built by Virgil Brewster at [Sucana](https://sucana.ai) — AI-powered tools for B2B SaaS teams.
+This repo exists as the **source of truth for Virgil's personal DM playbook**. The spec is open because transparency > secrecy — the pivot history, the 11 non-negotiables, and the Ralph test results are documented in full so future-Virgil (and collaborators) can trace every decision.
 
----
+If you want to build your own DM skill from this: fork it, strip Virgil-specific voice rules, re-define your own ICP, re-run the Ralph tests against your own past threads. The framework (CHADRM + conversion-gap ICP + pre-send checks + three-prompt architecture) is the reusable part. Everything else is Virgil's lived data.
 
-## The Lead — AI Workflows for Marketers
+## The Lead
 
-Every Friday, one real AI workflow from inside our build. No theory. No hype. Just what worked, what flopped, and what we'd do differently.
-
-[Join The Lead →](https://sucana.ai/newsletter)
-
-Built by [Virgil Brewster](https://www.linkedin.com/in/virgilbrewster/) at [Sucana](https://sucana.ai)
+Weekly newsletter on AI-first sales systems for founders: [thelead.beehiiv.com](https://thelead.beehiiv.com)
